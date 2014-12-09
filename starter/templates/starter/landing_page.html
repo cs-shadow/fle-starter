@@ -1,1 +1,24 @@
 {% extends "starter/base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="accordion" id="movie-accordion">
+  {% for movie in movies %}
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <h3><a class="accordion-toggle" data-toggle="collapse" data-parent="#movie-accordion" href="#movie-description-{{ movie.id }}">
+          {{ movie.title }}
+        </a></h3>
+      </div><!-- /.accordion-heading -->
+      <div id="movie-description-{{ movie.id }}" class="accordion-body collapse">
+        <div class="accordion-inner">
+          {{ movie.synopsis }}
+        </div><!-- /. -->
+      </div><!-- /.accordion-body -->
+    </div><!-- /.accordion-group -->
+  {% endfor %}
+  </div><!-- /.accordion -->
+</div><!-- /.container -->
+
+{% endblock %}
