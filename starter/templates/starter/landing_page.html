@@ -5,16 +5,57 @@
 <div class="container">
   <div class="accordion" id="movie-accordion">
   {% for movie in movies %}
-    <div class="accordion-group">
+    <div class="accordion-group" style="clear:both;">
       <div class="accordion-heading">
         <h3><a class="accordion-toggle" data-toggle="collapse" data-parent="#movie-accordion" href="#movie-description-{{ movie.id }}">
-          {{ movie.title }}
+            {{ movie.title }}<span class="small"> ({{ movie.year }})</span>
         </a></h3>
       </div><!-- /.accordion-heading -->
       <div id="movie-description-{{ movie.id }}" class="accordion-body collapse">
         <div class="accordion-inner">
-          {{ movie.synopsis }}
-        </div><!-- /. -->
+          <div class="clearfix media">
+            <img src="{{ movie.posters.profile }}" alt="Poster of {{ movie.name }}" class="pull-left">
+
+            <div class="table-responsive">
+              <table class="table movie-specs" style="width: 500px;">
+                <tr>
+                  <td><strong>MPAA Rating</strong></td>
+                  <td>{{ movie.mpaa_rating }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Release Dates</strong></td>
+                  <td>{{ movie.release_dates.theater }}</td>
+                </tr>
+                <tr>
+                  <td><strong>Ratings</strong></td>
+                  <td><em>Critics Score:</em> {{ movie.ratings.critics_score }} | <em>Audience Score</em>: {{ movie.ratings.audience_score }}</td>
+                </tr>
+              </table>
+            </div><!-- /.table-responsive -->
+
+            <div class="movie-synopsis">
+              {{ movie.synopsis }}
+            </div><!-- /.movie-synopsis -->
+
+            <div class="movie-cast">
+              <h3>Abridged Cast</h3>
+              <div class="table-responsive">
+                <table class="table">
+                  {% for actor in movie.abridged_cast %}
+                  <tr>
+                    <td>{{ actor.name }}</td>
+                    <td>{{ actor.characters|join:", " }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div><!-- /.table-responsive -->
+            </div><!-- /.movie-cast -->
+
+            <div class="read-more">
+              <a href="{{ movie.links.alternate }}">Read more at Rotten Tomatoes</a>
+            </div><!-- /.read-more -->
+          </div><!-- /.clearfix -->
+        </div><!-- /.accordion-inner -->
       </div><!-- /.accordion-body -->
     </div><!-- /.accordion-group -->
   {% endfor %}
